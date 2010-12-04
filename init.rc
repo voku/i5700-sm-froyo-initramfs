@@ -24,7 +24,7 @@ loglevel 3
     symlink /sys/kernel/debug /d
 
 # Kernel version
-    setprop ro.build.display.id "K/Criminal.r3[ckMod.001]"
+    setprop ro.build.display.id "ckMod.002 for CM"
 
 # insert modules
 #ifdef SLSI_S3C6410
