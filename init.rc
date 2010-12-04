@@ -24,7 +24,7 @@ loglevel 3
     symlink /sys/kernel/debug /d
 
 # Kernel version
-    setprop ro.build.display.id "K/Criminal.r3+ckMod.001"
+    setprop ro.build.display.id "K/Criminal.r3[ckMod.001]"
 
 # insert modules
 #ifdef SLSI_S3C6410
@@ -114,6 +114,9 @@ loglevel 3
     # 5.0 %
     write /dev/cpuctl/bg_non_interactive/cpu.shares 52
 
+    # mount /xbin (busybox) early for Xmister's autofsck
+    mount squashfs /dev/bml8 /xbin ro loop
+
 # mount mtd partitions (rfs/ext2/ext4 support)
     # Mount /system rw first to give the filesystem a chance to save a checkpoint
     # mount yaffs2 mtd@system /system 
@@ -131,6 +134,11 @@ loglevel 3
     chmod 0771 /data
     chmod 0666 /dev/log/radio
     chmod 0666 /dev/log/main
+
+    # Xmister's Dynamic Settings
+    exec /xbin/busybox sh -c "cat /system/xmister/soundfix > /proc/xmister/soundfix"
+    exec /xbin/busybox sh -c "cat /system/xmister/undervolt > /proc/xmister/undervolt"
+    exec /xbin/busybox sh -c "cat /system/xmister/buffer > /proc/xmister/buffer"
 
     # Create dump dir and collect dumps.
     # Do this before we mount cache so eventually we can use cache for
