@@ -24,7 +24,7 @@ loglevel 3
     symlink /sys/kernel/debug /d
 
 # Kernel version
-    setprop ro.build.display.id "ckMod.002 for CM"
+    setprop ro.build.display.id "ckMod.004 for CM"
 
 # insert modules
 #ifdef SLSI_S3C6410
@@ -419,11 +419,11 @@ on boot
 
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-    setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.wifi    4095,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
-    setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
+    setprop net.tcp.buffersize.default 4096,87380,404480,4096,16384,404480
+    setprop net.tcp.buffersize.wifi    4096,87380,404480,4096,16384,404480
+    setprop net.tcp.buffersize.umts    4096,87380,404480,4096,16384,404480
+    setprop net.tcp.buffersize.edge    4096,26280,35040,4096,16384,35040
+    setprop net.tcp.buffersize.gprs    4096,8760,11680,4096,8760,11680
 
 #include extra init.rc for ch33kybutt
 import /system/etc/init.local.rc
