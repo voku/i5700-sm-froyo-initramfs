@@ -21,6 +21,7 @@ file /lib/modules/xsr_debug.ko /home/ch33kybutt/kernel/i5700-initramfs-froyo-2.6
 file /lib/modules/tun.ko /home/ch33kybutt/kernel/i5700-initramfs-froyo-2.6.29.6/lib/modules/tun.ko 0644 0 0
 file /lib/modules/qt5480.ko /home/ch33kybutt/kernel/i5700-initramfs-froyo-2.6.29.6/lib/modules/qt5480.ko 0644 0 0
 file /lib/modules/ramzswap.ko /home/ch33kybutt/kernel/i5700-initramfs-froyo-2.6.29.6/lib/modules/ramzswap.ko 0644 0 0
+file /lib/modules/xt_owner.ko /home/ch33kybutt/kernel/i5700-initramfs-froyo-2.6.29.6/lib/modules/xt_owner.ko 0644 0 0
 file /init.rc /home/ch33kybutt/kernel/i5700-initramfs-froyo-2.6.29.6/init.rc 0644 0 0
 slink /etc /system/etc 0777 0 0
 dir /sys 0755 0 0
