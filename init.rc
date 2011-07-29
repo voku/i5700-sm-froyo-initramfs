@@ -23,7 +23,7 @@ loglevel 3
     symlink /sys/kernel/debug /d
 
 # Kernel version
-    setprop ro.build.display.id "VOKU-kernel v1.9"
+    setprop ro.build.display.id "VOKU-kernel v2.2"
 
 # insert modules
 #ifdef SLSI_S3C6410
@@ -87,7 +87,16 @@ loglevel 3
 
     mkdir /sd-ext 0771 system system
 
-	write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
+    write /proc/sys/kernel/panic_on_oops 1
+    write /proc/sys/kernel/hung_task_timeout_secs 0
+    write /proc/cpu/alignment 4
+    write /proc/sys/kernel/sched_latency_ns 20000000
+    write /proc/sys/kernel/sched_wakeup_granularity_ns 3000000
+    write /proc/sys/kernel/sched_min_granularity_ns 1000000
+    write /proc/sys/kernel/sched_rt_runtime_us -1
+    write /proc/sys/kernel/sched_rt_period_us 1000000
+    write /proc/sys/kernel/sched_compat_yield 1
+    write /proc/sys/kernel/sched_child_runs_first 0
 
 # Create cgroup mount points for process groups
     mkdir /dev/cpuctl
@@ -327,6 +336,18 @@ on boot
     setprop ro.CONTENT_PROVIDER_MEM 5632
     setprop ro.EMPTY_APP_MEM 6144
 
+# Tweak
+	setprop ro.telephony.call_ring.delay 1000
+	setprop wifi.supplicant_scan_interval 180
+	setprop windowsmgr.max_events_per_sec 60
+	setprop ro.media.dec.jpeg.memcap 20000000
+	setprop ro.media.enc.jpeg.quality 95,85,70
+	setprop dalvik.vm.dexopt-data-only 1
+	setprop dalvik.vm.startheapsize 8m
+	setprop dalvik.vm.heapsize 32m
+	setprop dalvik.vm.lockprof.threshold 500
+	setprop debug.sf.hw 1
+
 # Write value must be consistent with the above properties.
 # Note that the driver only supports 6 slots, so we have HOME_APP at the
 # same memory level as services.
@@ -343,33 +364,9 @@ on boot
 	write /proc/sys/kernel/printk 4 6 1 4
 
     # Tweak kernel VM management
-	write /proc/sys/vm/dirty_expire_centisecs 200
-	write /proc/sys/vm/dirty_background_ratio  5
 	write /proc/sys/vm/oom_kill_allocating_task 1
-	write /proc/sys/vm/vfs_cache_pressure 10
+	write /proc/sys/vm/vfs_cache_pressure 100
 	write /proc/sys/vm/min_free_kbytes 3072
-
-	# Tweak network parameters
-	write /proc/sys/net/ipv4/tcp_mem 256960 256960 256960
-	write /proc/sys/net/core/wmem_max 404480
-	write /proc/sys/net/core/rmem_max 404480
-	write /proc/sys/net/ipv4/tcp_wmem 4096 16384 404480
-	write /proc/sys/net/ipv4/tcp_rmem 4096 87380 404480
-	write /proc/sys/net/core/rmem_default 256960
-	write /proc/sys/net/core/wmem_default 256960
-	write /proc/sys/net/ipv4/tcp_timestamps 0
-	write /proc/sys/net/ipv4/tcp_tw_reuse 1
-	write /proc/sys/net/ipv4/tcp_sack 1
-	write /proc/sys/net/ipv4/tcp_tw_recycle 1
-	write /proc/sys/net/ipv4/tcp_no_metrics_save 1
-	write /proc/sys/net/ipv4/tcp_window_scaling 1
-	write /proc/sys/net/ipv4/tcp_keepalive_probes 5
-	write /proc/sys/net/ipv4/tcp_keepalive_time 1200
-	write /proc/sys/net/ipv4/tcp_keepalive_intvl 30
-	write /proc/sys/net/ipv4/tcp_fin_timeout 30
-	write /proc/sys/net/ipv4/tcp_congestion_control cubic
-	write /proc/sys/net/ipv4/route/flush 1
-	write /proc/sys/net/core/netdev_max_backlog 2500
 
     # Permissions for System Server and daemons.
 #    chown radio system /sys/android_power/state
