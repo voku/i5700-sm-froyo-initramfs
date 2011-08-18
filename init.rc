@@ -23,7 +23,7 @@ loglevel 3
     symlink /sys/kernel/debug /d
 
 # Kernel version
-    setprop ro.build.display.id "VOKU-kernel v2.2"
+    setprop ro.build.display.id "VOKU-kernel v2.5"
 
 # insert modules
 #ifdef SLSI_S3C6410
@@ -91,9 +91,9 @@ loglevel 3
     write /proc/sys/kernel/hung_task_timeout_secs 0
     write /proc/cpu/alignment 4
     write /proc/sys/kernel/sched_latency_ns 20000000
-    write /proc/sys/kernel/sched_wakeup_granularity_ns 3000000
-    write /proc/sys/kernel/sched_min_granularity_ns 1000000
-    write /proc/sys/kernel/sched_rt_runtime_us -1
+    write /proc/sys/kernel/sched_wakeup_granularity_ns 5000000
+    write /proc/sys/kernel/sched_min_granularity_ns 4000000
+    write /proc/sys/kernel/sched_rt_runtime_us 950000
     write /proc/sys/kernel/sched_rt_period_us 1000000
     write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
@@ -361,13 +361,13 @@ on boot
 	write /proc/sys/kernel/printk 4 6 1 4
 
     # Tweak kernel VM management
+    write /proc/sys/vm/swappiness 0
+    write /proc/sys/vm/laptop_mode 5
+    write /proc/sys/vm/page-cluster 0
+    write /proc/sys/vm/dirty_expire_centisecs 0
+    write /proc/sys/vm/dirty_writeback_centisecs 0
 	write /proc/sys/vm/oom_kill_allocating_task 1
-	write /proc/sys/vm/vfs_cache_pressure 100
-	write /proc/sys/vm/min_free_kbytes 3072
-
-    # Tweak background writeout
-    write /proc/sys/vm/dirty_expire_centisecs 200
-    write /proc/sys/vm/dirty_background_ratio  5
+	write /proc/sys/vm/min_free_kbytes 1652
 
     # Permissions for System Server and daemons.
 #    chown radio system /sys/android_power/state
